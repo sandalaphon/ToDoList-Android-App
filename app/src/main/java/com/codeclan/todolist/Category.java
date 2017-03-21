@@ -3,16 +3,13 @@ package com.codeclan.todolist;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-/**
- * Created by user on 17/03/2017.
- */
 
 public class Category implements Serializable{
     private String category;
     private ArrayList<String>categories;
 
     public Category(String category) {
-        this.categories = new ArrayList<>();
+        categories = new ArrayList<>();
         this.category = category;
         categories.add("Family");
         categories.add("Social");
@@ -20,6 +17,7 @@ public class Category implements Serializable{
         categories.add("Shopping");
         categories.add("Admin");
         categories.add("General");
+        this.categories = categories;
 
     }
     public String getCategory() {
@@ -35,4 +33,18 @@ public class Category implements Serializable{
     public void setCategories(ArrayList<String> categories) {
         this.categories = categories;
     }
+
+    public int getIndexByCategory(Category category3){
+        int index;
+        int counter=0;
+        for(String category: categories){
+            if(category.equals(category3)){
+                return counter;
+            }
+            counter ++;
+        }
+        return -1;
+    }
 }
+
+

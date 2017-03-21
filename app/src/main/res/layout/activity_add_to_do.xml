@@ -69,9 +69,26 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_weight="0.03"
+        android:elevation="0dp"
         android:onClick="onClickAddToDo"
         android:text="Add Task"
+        android:visibility="visible"
         tools:text="Add Task" />
+
+    <Button
+        android:id="@+id/set_date_button"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Set Date" />
+
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="72dp"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 
 </LinearLayout>

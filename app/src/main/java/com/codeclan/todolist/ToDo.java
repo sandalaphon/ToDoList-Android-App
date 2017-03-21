@@ -10,17 +10,13 @@ public class ToDo implements Comparable<ToDo>, Serializable {
     private String date;
     private String details;
 
-    public ToDo(double priority, Category category, String title) {
+    public ToDo(double priority, Category category, String title, String details) {
         this.priority = priority;
         this.category = category;
         this.title = title;
         this.details = details;
         this.date = date;
     }
-
-
-
-
 
     public double getPriority() {
         return priority;
@@ -51,6 +47,7 @@ public class ToDo implements Comparable<ToDo>, Serializable {
     public String getDetails() {
         return details;
     }
+
     public void setDetails(String details) {
         this.details = details;
     }

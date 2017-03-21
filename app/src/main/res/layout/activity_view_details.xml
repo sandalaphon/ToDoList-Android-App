@@ -10,7 +10,7 @@ android:layout_weight="1"
 android:weightSum="1">
 
 
-<TextView
+<EditText
     android:id="@+id/toDoEditSummary"
     android:layout_width="match_parent"
     android:layout_height="?attr/listPreferredItemHeight"
@@ -33,53 +33,53 @@ android:weightSum="1">
     android:spinnerMode="dropdown"
     android:visibility="visible"/>
 
-<!--<RatingBar-->
-    <!--android:id="@+id/set_edit_priority"-->
-    <!--style="@style/Widget.AppCompat.RatingBar"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="@android:dimen/notification_large_icon_height"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--android:layout_weight="0.06"-->
-    <!--android:isIndicator="false"-->
-    <!--android:numStars="5"-->
-    <!--android:rating="2.5"-->
-    <!--android:stepSize="0.5"-->
-    <!--android:visibility="visible" />-->
+<RatingBar
+    android:id="@+id/edit_priority"
+    style="@style/Widget.AppCompat.RatingBar"
+    android:layout_width="wrap_content"
+    android:layout_height="@android:dimen/notification_large_icon_height"
+    android:layout_gravity="center"
+    android:layout_margin="@dimen/fab_margin"
+    android:layout_weight="0.06"
+    android:isIndicator="false"
+    android:numStars="5"
+    android:rating="2.5"
+    android:stepSize="0.5"
+    android:visibility="visible" />
 
-<!--<EditText-->
-    <!--android:id="@+id/set_edit_details"-->
-    <!--style="@style/Widget.AppCompat.EditText"-->
-    <!--android:layout_width="match_parent"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="left"-->
-    <!--android:layout_margin="@dimen/fab_margin"-->
-    <!--android:layout_marginTop="@dimen/fab_margin"-->
-    <!--android:hint="Type further details here."-->
-    <!--android:inputType="textLongMessage"-->
-    <!--android:layout_weight="0.08" />-->
+<EditText
+    android:id="@+id/set_edit_details"
+    style="@style/Widget.AppCompat.EditText"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_gravity="left"
+    android:layout_margin="@dimen/fab_margin"
+    android:layout_marginTop="@dimen/fab_margin"
+    android:hint="Type further details here."
+    android:inputType="textLongMessage"
+    android:layout_weight="0.08" />
 
-<!--<Button-->
-    <!--android:id="@+id/edit_todo_button"-->
-    <!--style="@style/Widget.AppCompat.Button"-->
-    <!--android:layout_width="wrap_content"-->
-    <!--android:layout_height="wrap_content"-->
-    <!--android:layout_gravity="center"-->
-    <!--android:layout_weight="0.03"-->
-    <!--android:onClick="onClickEditToDoButton"-->
-    <!--android:text="Edit Task"-->
-    <!--tools:text="Edit Task" />-->
+<Button
+    android:id="@+id/edit_todo_button"
+    style="@style/Widget.AppCompat.Button"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_gravity="center"
+    android:layout_weight="0.03"
+    android:onClick="onClickEditToDoButton"
+    android:text="Save Changes"
+    tools:text="Edit Task" />
 
-    <!--<Button-->
-        <!--android:id="@+id/delete_task_button"-->
-        <!--style="@style/Widget.AppCompat.Button"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_gravity="center"-->
-        <!--android:layout_weight="0.03"-->
-        <!--android:onClick="onClickDeleteToDoButton"-->
-        <!--android:text="DELETE Task"-->
-        <!--tools:text="Delete Task" />-->
+    <Button
+        android:id="@+id/delete_task_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.03"
+        android:onClick="onClickDeleteToDoButton"
+        android:text="DELETE Task"
+        tools:text="Delete Task" />
 
 
 
