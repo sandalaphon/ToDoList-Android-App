@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">To Do List</string>
+    <string name="set_category">SELECT CATEGORY</string>
+    <string name="edit_category">EDIT CATEGORY</string>
+</resources>

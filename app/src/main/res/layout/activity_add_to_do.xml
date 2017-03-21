@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codeclan.todolist.AddToDoActivity"
+    android:orientation="vertical"
+    android:layout_weight="1"
+    android:weightSum="1">
+
+
+    <TextView
+        android:id="@+id/toDoSummary"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/listPreferredItemHeight"
+        android:text="toDoSummary"
+        android:textAlignment="center"
+        android:textSize="30dp"
+
+        tools:text="@string/set_category" />
+
+    <Spinner
+        android:id="@+id/set_category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_weight="0.05"
+        android:background="@android:drawable/bottom_bar"
+        android:dropDownWidth="match_parent"
+        android:entries="@style/AppTheme"
+        android:popupBackground="@android:drawable/button_onoff_indicator_off"
+        android:prompt="@string/set_category"
+        android:spinnerMode="dropdown"
+        android:visibility="visible"></Spinner>
+
+    <RatingBar
+        android:id="@+id/set_priority"
+        style="@style/Widget.AppCompat.RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="@android:dimen/notification_large_icon_height"
+        android:layout_below="@+id/set_category"
+        android:layout_gravity="center"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_weight="0.06"
+        android:isIndicator="false"
+        android:numStars="5"
+        android:rating="2.5"
+        android:stepSize="0.5"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/set_details"
+        style="@style/Widget.AppCompat.EditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:layout_margin="@dimen/fab_margin"
+        android:layout_marginTop="@dimen/fab_margin"
+        android:hint="Type further details here."
+        android:inputType="textLongMessage"
+        android:layout_weight="0.08" />
+
+    <Button
+        android:id="@+id/add_todo_button"
+        style="@style/Widget.AppCompat.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_weight="0.03"
+        android:onClick="onClickAddToDo"
+        android:text="Add Task"
+        tools:text="Add Task" />
+
+
+</LinearLayout>

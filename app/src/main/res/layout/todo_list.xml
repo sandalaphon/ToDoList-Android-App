@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ListView
+        android:id="@+id/list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/newTaskSummary"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="true"></ListView>
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/newTaskSummary"
+        android:layout_alignTop="@+id/buttonAddSummary"
+        android:hint="Enter new task summary"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_toLeftOf="@+id/buttonAddSummary"
+        android:layout_toStartOf="@+id/buttonAddSummary"
+        android:layout_alignParentBottom="true" />
+
+    <Button
+        android:onClick="onClickAddSummary"
+        android:layout_width="200sp"
+        android:layout_height="100sp"
+        android:text="Add Task"
+        android:id="@+id/buttonAddSummary"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+</RelativeLayout>
