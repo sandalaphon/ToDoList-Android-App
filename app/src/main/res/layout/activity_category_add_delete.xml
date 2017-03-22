@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.codeclan.todolist.CategoryAddDeleteActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <TextView
+
+        android:id="@+id/add_Category"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/fab_margin"
+        android:text="Add or delete a Category"
+        android:textAlignment="center"
+        android:textSize="30sp"
+        tools:layout_editor_absoluteX="8dp"
+        tools:layout_editor_absoluteY="93dp" />
+
+
+    <EditText
+        android:textAlignment="center"
+        android:hint="Add a Category Here"
+        android:id="@+id/category_to_add"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05" />
+
+    <Button
+        android:onClick="onClickAddCategory"
+        android:id="@+id/add_category_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save Category" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.13" />
+
+    <Button
+        android:onClick="onClickDeleteCategoryButton"
+        android:id="@+id/delete_category_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Delete Category" />
+</LinearLayout>

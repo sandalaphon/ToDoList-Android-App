@@ -2,5 +2,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/sort_priority"
         android:title="Sort By Priority"/>
-
+    <item android:id="@+id/add_delete_category"
+        android:title="Add/Delete Category"/>
 </menu>

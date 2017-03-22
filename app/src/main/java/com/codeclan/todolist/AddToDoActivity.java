@@ -36,12 +36,13 @@ public class AddToDoActivity extends AppCompatActivity {
     private Spinner categorySpinner;
     private ArrayList<String>categories;
     public static final String TODOLISTS = "myTasks";
+    public static final String CATEGORIES = "categories";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_do);
-
+//        addcategories();
         addCategoriesToSpinner();
         Intent intent = getIntent();
         String summary = intent.getStringExtra("toDoSummary");
@@ -88,11 +89,21 @@ public class AddToDoActivity extends AppCompatActivity {
 
 
     public void addCategoriesToSpinner(){
-        category = new Category("");
-        categories = new ArrayList<>(category.getCategories());
+//        category = new Category("");
+//        categories = new ArrayList<>(category.getCategories());
+
+        Gson gson = new Gson();
+
+        SharedPreferences sharedPreferences2 = getSharedPreferences(CATEGORIES, Context.MODE_PRIVATE);
+        String defaultValue = gson.toJson(new ArrayList<String>());
+        String newCategoryArrayST = sharedPreferences2.getString("categories", defaultValue);
+
+        TypeToken<ArrayList<String>>typeCategoryArray = new TypeToken<ArrayList<String>>(){};
+        ArrayList<String>newCategoryArray= gson.fromJson(newCategoryArrayST,typeCategoryArray.getType());
+
         categorySpinner = (Spinner)findViewById(R.id.set_category);
             ArrayAdapter<String>categoriesAdapter= new ArrayAdapter<String>(
-                    this, R.layout.simple_spinner_dropdown_items, categories);
+                    this, R.layout.simple_spinner_dropdown_items, newCategoryArray);
         categoriesAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_items);
         categorySpinner.setAdapter(categoriesAdapter);
         }
@@ -130,6 +141,16 @@ public class AddToDoActivity extends AppCompatActivity {
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
+
+//    public void addcategories(){
+//        category = new Category("");
+//        categories=category.getCategories();
+//        Gson gson= new Gson();
+//        SharedPreferences sharedPreferences2= getSharedPreferences(CATEGORIES, Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor2=  sharedPreferences2.edit();
+//        editor2.putString("categories", gson.toJson(categories));
+//        editor2.apply();
+//    }
 
     }
 

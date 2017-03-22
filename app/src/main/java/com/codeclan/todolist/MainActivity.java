@@ -109,6 +109,11 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
             return true;
         }
+        else if (item.getItemId()==R.id.add_delete_category){
+            Intent intent = new Intent(this, CategoryAddDeleteActivity.class);
+            startActivity(intent);
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
