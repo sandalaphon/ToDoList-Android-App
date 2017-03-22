@@ -85,12 +85,10 @@ public class ViewDetailsActivity extends AppCompatActivity implements Serializab
             int spinnerPosition = categoriesAdapter.getPosition(currentToDo.getCategory().getCategory());
             categorySpinner.setSelection(spinnerPosition);
         }
-
-
     }
 
     public void onClickEditToDoButton(View button){
-        ////////////////////////////////////////
+
         final EditText detailsET = (EditText)findViewById(R.id.set_edit_details);
         String details = detailsET.getText().toString();
         final RatingBar priorityRT = (RatingBar)findViewById(R.id.edit_priority);

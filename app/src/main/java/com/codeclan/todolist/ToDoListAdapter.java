@@ -1,6 +1,7 @@
 package com.codeclan.todolist;
 
 import android.content.Context;
+import android.icu.text.SimpleDateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,7 +11,11 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+
+
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import static android.R.attr.priority;
 import static android.R.id.list;
@@ -36,6 +41,19 @@ public class ToDoListAdapter extends ArrayAdapter<ToDo>{
 
             TextView title = (TextView) listItemView.findViewById(R.id.title);
             title.setText(currentToDo.getTitle());
+
+
+        TextView dateview = (TextView) listItemView.findViewById(R.id.date_text_view);
+        Date date = currentToDo.getDate();
+        if(date!=null){Log.d("Date", date.toString());}
+
+        if(date!=null){
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+            String dateToString = simpleDateFormat.format(date);
+            dateview.setText(dateToString);
+        }
+
+
         Button button =(Button)listItemView.findViewById(R.id.detailsButton);
         button.setTag(position);
         Button deletebutton =(Button)listItemView.findViewById(R.id.list_delete_button);

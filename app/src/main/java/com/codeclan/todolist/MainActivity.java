@@ -25,9 +25,6 @@ import com.google.gson.reflect.TypeToken;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-import static android.R.id.edit;
-import static android.os.Build.VERSION_CODES.M;
-
 
 public class MainActivity extends AppCompatActivity implements Serializable{
     public static final String TODOLIST = "myTasks";
@@ -35,10 +32,12 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     Gson gson = new Gson();
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_list);
-
+        // First we get ArrayList of all ToDos from
+        // ShardPreference store
         String defaultString = gson.toJson(new ArrayList<ToDo>());
         sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
         String toDoListString = sharedPreferences.getString("myTasks", defaultString );
@@ -46,6 +45,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         TypeToken<ArrayList<ToDo>>typeToDoList= new TypeToken<ArrayList<ToDo>>(){};
         fullList = gson.fromJson(toDoListString, typeToDoList.getType());
 
+        // Now the vTODO arraylist is used to populate list
         ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
 
         ListView listView = (ListView)findViewById(R.id.list);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         String toDoSummary = toDoSummaryET.getText().toString();
 
         Intent intent = new Intent(this, AddToDoActivity.class);
-        intent.putExtra("toDoSummary", toDoSummary);
+        intent.putExtra("toDoSummary", toDoSummary);//send the string through with the intent
         startActivity(intent);
     }
 
@@ -66,15 +66,15 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
 
         int currentToDoPosition = (int)button.getTag();
-
+        // the array index of relavent vToDo is collected from tag
         Intent intent = new Intent(this, ViewDetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("currentToDo", currentToDoPosition);
 
-        intent = intent.putExtras(bundle);
+        intent = intent.putExtras(bundle); //and sent in serialized bundle
+        // to viewDetailsActivity
         startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -90,18 +90,14 @@ public class MainActivity extends AppCompatActivity implements Serializable{
             //First get the full toDoList
             sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
             String toDoListString = sharedPreferences.getString("myTasks", "whatever");
-
             gson = new Gson();
-
             TypeToken<ArrayList<ToDo>>typeToDoList= new TypeToken<ArrayList<ToDo>>(){};
-
-
-
             ArrayList<ToDo>fullList = gson.fromJson(toDoListString, typeToDoList.getType());
-
+        //   now sort the array
             SortPriority sorter = new SortPriority();
             ArrayList<ToDo>sorted=sorter.sortPriority(fullList);
-
+        //  We now display sorted array...NOTE DANGER!!!
+            // indexes do not match
             ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, sorted);
 
             ListView listView = (ListView)findViewById(R.id.list);

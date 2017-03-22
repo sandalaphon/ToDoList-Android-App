@@ -45,7 +45,8 @@ android:weightSum="1">
     android:numStars="5"
     android:rating="2.5"
     android:stepSize="0.5"
-    android:visibility="visible" />
+    android:visibility="visible"
+    android:theme="@style/RatingBar"/>
 
 <EditText
     android:id="@+id/set_edit_details"

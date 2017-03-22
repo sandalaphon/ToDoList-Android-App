@@ -11,15 +11,15 @@
         <!--android:layout_height="50sp"-->
         <!--/>-->
     <Button
-        android:onClick="onClickViewDetails"
-        android:layout_gravity="center"
         android:id="@+id/detailsButton"
-        android:hint="View Details"
         android:layout_width="wrap_content"
-        android:layout_height="50sp"
-        android:layout_alignParentTop="true"
+        android:layout_height="40sp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_gravity="center"
+        android:hint="View Details"
+        android:onClick="onClickViewDetails" />
 
     <!--<LinearLayout-->
 
@@ -50,31 +50,43 @@
         android:textSize="20sp"
         android:layout_below="@+id/title" />
 
-        <RatingBar
-            android:id="@+id/priority"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:isIndicator="true"
-            android:numStars="5"
-            android:rating="2.5"
-            android:stepSize="0.5"
-            android:theme="@style/RatingBar"
-            android:layout_below="@+id/category"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+    <RatingBar
+        android:id="@+id/priority"
+        style="@android:style/Widget.DeviceDefault.RatingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="50sp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="17dp"
+        android:layout_marginRight="126dp"
+
+        android:isIndicator="true"
+        android:numStars="5"
+        android:rating="2.5"
+        android:stepSize="0.5"
+        android:theme="@style/RatingBar"
+        android:layout_alignParentEnd="true"
+        android:layout_below="@+id/category" />
 
     <Button
-        android:onClick="onClickDeleteFromList"
         android:id="@+id/list_delete_button"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_height="40sp"
+        android:layout_alignBottom="@+id/priority"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/detailsButton"
-        android:layout_toLeftOf="@+id/category"
-        android:layout_toStartOf="@+id/category"
+        android:onClick="onClickDeleteFromList"
         android:text="Delete" />
+
+    <TextView
+        android:id="@+id/date_text_view"
+        android:layout_width="130sp"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/list_delete_button"
+        android:layout_below="@+id/detailsButton"
+        android:layout_toStartOf="@+id/priority"
+        android:text="No Date"
+        android:textAlignment="viewStart"
+        android:gravity="center_vertical"
+        android:textSize="20sp" />
 
     <!--</LinearLayout>-->
 

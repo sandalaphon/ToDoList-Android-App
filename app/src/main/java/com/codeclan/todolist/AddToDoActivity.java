@@ -21,15 +21,24 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class AddToDoActivity extends AppCompatActivity {
+
+    private Date date;
+    private Boolean isDateSet = false;
     private Button dateButton;
     private DatePicker datePicker;
     private Calendar calendar;
     private TextView dateView;
-    private int year, month, day;
+//    private int year, month, day;
+    private int year=2017;
+    private int month=03;
+    private int day=22;
     static final int DIALOG_ID = 0;
 
     private Category category;
@@ -78,6 +87,7 @@ public class AddToDoActivity extends AppCompatActivity {
             new DatePickerDialog.OnDateSetListener(){
                 @Override
                 public void onDateSet(DatePicker view, int yearDate, int monthOfYear, int dayOfMonth){
+                    isDateSet=true;
                     year = yearDate;
                     month = monthOfYear;
                     day= dayOfMonth;
@@ -108,51 +118,57 @@ public class AddToDoActivity extends AppCompatActivity {
         categorySpinner.setAdapter(categoriesAdapter);
         }
 
-    public void onClickAddToDo(View button){
-        final EditText detailsET = (EditText)findViewById(R.id.set_details);
+    public void onClickAddToDo(View button) {
+        final EditText detailsET = (EditText) findViewById(R.id.set_details);
         String details = detailsET.getText().toString();
-        final RatingBar priorityRT = (RatingBar)findViewById(R.id.set_priority);
-        float priorityfloat = priorityRT.getRating();
-        double priority = (double)priorityfloat;
-        final TextView textView = (TextView)findViewById(R.id.toDoSummary);
+        final RatingBar priorityRT = (RatingBar) findViewById(R.id.set_priority);
+        float priorityFloat = priorityRT.getRating();
+        double priority = (double) priorityFloat;
+        final TextView textView = (TextView) findViewById(R.id.toDoSummary);
         String summary = textView.getText().toString();
-        final Spinner categorySp=(Spinner)findViewById(R.id.set_category);
+        final Spinner categorySp = (Spinner) findViewById(R.id.set_category);
         String category = categorySp.getSelectedItem().toString();
         Category categ = new Category(category);
         ToDo toDo = new ToDo(priority, categ, summary, details);
         toDo.setDetails(details);
 
-        Gson gson = new Gson();
+        if (isDateSet == true) {
+            try {
+                date = new SimpleDateFormat("dd/MM/yyyy").parse(day + "/" + month + "/" + year);
 
-        SharedPreferences sharedPreferences = getSharedPreferences(TODOLISTS, Context.MODE_PRIVATE);
-        String defaultValue = gson.toJson(new ArrayList<ToDo>());
-        String newToDoListArrayST = sharedPreferences.getString("myTasks", defaultValue);
+                toDo = new ToDo(priority, categ, summary, details, date);
+                toDo.setDetails(details);
+                Log.d("" + date, "hello");
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
 
-        TypeToken<ArrayList<ToDo>>typeNewToDoListArray = new TypeToken<ArrayList<ToDo>>(){};
-        ArrayList<ToDo>newToDoListArray= gson.fromJson(newToDoListArrayST,typeNewToDoListArray.getType());
-        newToDoListArray.add(toDo);
+        }
 
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putString("myTasks", gson.toJson(newToDoListArray));
-        editor.apply();
 
-        Toast.makeText(AddToDoActivity.this, "New Task Added", Toast.LENGTH_LONG).show();
+            Gson gson = new Gson();
 
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+            SharedPreferences sharedPreferences = getSharedPreferences(TODOLISTS, Context.MODE_PRIVATE);
+            String defaultValue = gson.toJson(new ArrayList<ToDo>());
+            String newToDoListArrayST = sharedPreferences.getString("myTasks", defaultValue);
+
+            TypeToken<ArrayList<ToDo>> typeNewToDoListArray = new TypeToken<ArrayList<ToDo>>() {
+            };
+            ArrayList<ToDo> newToDoListArray = gson.fromJson(newToDoListArrayST, typeNewToDoListArray.getType());
+            newToDoListArray.add(toDo);
+
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("myTasks", gson.toJson(newToDoListArray));
+            editor.apply();
+
+            Toast.makeText(AddToDoActivity.this, "New Task Added", Toast.LENGTH_LONG).show();
+
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+
     }
 
-//    public void addcategories(){
-//        category = new Category("");
-//        categories=category.getCategories();
-//        Gson gson= new Gson();
-//        SharedPreferences sharedPreferences2= getSharedPreferences(CATEGORIES, Context.MODE_PRIVATE);
-//        SharedPreferences.Editor editor2=  sharedPreferences2.edit();
-//        editor2.putString("categories", gson.toJson(categories));
-//        editor2.apply();
-//    }
-
-    }
 
 
 
