@@ -93,13 +93,4 @@ public class ToDo implements Comparable<ToDo>, Serializable {
     }
 }
 
-class ToDoPriorityComparator implements Comparator<ToDo> {
-    @Override
-    public int compare(ToDo toDo1, ToDo toDo2){
-        if(toDo2.getPriority()<toDo1.getPriority()){
-            return 1;}
-        else if (toDo2.getPriority()>toDo1.getPriority()){
-            return -1;}
-        return 0;
-    }
-}
+

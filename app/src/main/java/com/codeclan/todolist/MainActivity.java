@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
             ArrayList<ToDo>sorted=sorter.sortPriority(fullList);
         //  We now display sorted array...NOTE DANGER!!!
             // indexes do not match
+            // Create new SharedPreferences sublist
             ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, sorted);
 
             ListView listView = (ListView)findViewById(R.id.list);

@@ -32,10 +32,6 @@ public class AddToDoActivity extends AppCompatActivity {
     private Date date;
     private Boolean isDateSet = false;
     private Button dateButton;
-    private DatePicker datePicker;
-    private Calendar calendar;
-    private TextView dateView;
-//    private int year, month, day;
     private int year=2017;
     private int month=03;
     private int day=22;
@@ -134,7 +130,6 @@ public class AddToDoActivity extends AppCompatActivity {
                 date = new SimpleDateFormat("dd/MM/yyyy").parse(day + "/" + month + "/" + year);
 
                 toDo = new ToDo(priority, categ, summary, details, date);
-                toDo.setDetails(details);
                 Log.d("" + date, "hello");
             } catch (ParseException e) {
                 e.printStackTrace();

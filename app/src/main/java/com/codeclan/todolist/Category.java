@@ -15,11 +15,6 @@ import static android.content.Context.MODE_PRIVATE;
 public class Category implements Serializable{
     private String category;
     private ArrayList<String>categories;
-//    Gson gson;
-//    SharedPreferences sharedPreferences;
-//    SharedPreferences.Editor editor;
-//    public static final String CATEGORIES = "categories";
-
 
     public Category(String category) {
         categories = new ArrayList<>();

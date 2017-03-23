@@ -51,7 +51,8 @@ public class ToDoListAdapter extends ArrayAdapter<ToDo>{
             String dateToString = simpleDateFormat.format(date);
             dateview.setText(dateToString);
         }
-///////////
+        else{ dateview.setText("no date set");}
+
 
         Button button =(Button)listItemView.findViewById(R.id.detailsButton);
         button.setTag(position);
