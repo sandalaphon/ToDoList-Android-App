@@ -1,6 +1,7 @@
 package com.codeclan.todolist;
 
 import java.io.Serializable;
+import java.util.Comparator;
 import java.util.Date;
 
 public class ToDo implements Comparable<ToDo>, Serializable {
@@ -25,6 +26,8 @@ public class ToDo implements Comparable<ToDo>, Serializable {
         this.details = details;
 
     }
+
+
 
     public double getPriority() {
         return priority;
@@ -64,6 +67,36 @@ public class ToDo implements Comparable<ToDo>, Serializable {
         if(this.getPriority()<toDo1.getPriority()){
             return 1;}
         else if (this.getPriority()>toDo1.getPriority()){
+            return -1;}
+        return 0;
+    }
+
+    static class ToDoDateComparator implements Comparator<ToDo> {
+
+        @Override
+        public int compare(ToDo toDo1, ToDo toDo2){
+            if(toDo1.getDate()==null || toDo2.getDate()==null){return 1;}
+            return toDo1.getDate().compareTo(toDo2.getDate());
+
+
+        }
+    }
+
+    static class ToDoCategoryComparator implements Comparator<ToDo> {
+
+        @Override
+        public int compare(ToDo toDo1, ToDo toDo2){
+            return toDo1.getCategory().getCategory().compareTo(toDo2.getCategory().getCategory());
+        }
+    }
+}
+
+class ToDoPriorityComparator implements Comparator<ToDo> {
+    @Override
+    public int compare(ToDo toDo1, ToDo toDo2){
+        if(toDo2.getPriority()<toDo1.getPriority()){
+            return 1;}
+        else if (toDo2.getPriority()>toDo1.getPriority()){
             return -1;}
         return 0;
     }

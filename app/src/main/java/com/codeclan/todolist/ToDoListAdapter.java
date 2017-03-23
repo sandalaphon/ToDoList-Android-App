@@ -1,7 +1,7 @@
 package com.codeclan.todolist;
 
 import android.content.Context;
-import android.icu.text.SimpleDateFormat;
+import java.text.SimpleDateFormat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,8 +19,7 @@ import java.util.Locale;
 
 import static android.R.attr.priority;
 import static android.R.id.list;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.L;
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 
 public class ToDoListAdapter extends ArrayAdapter<ToDo>{
     ArrayList<ToDo>toDoArray;
@@ -52,7 +51,7 @@ public class ToDoListAdapter extends ArrayAdapter<ToDo>{
             String dateToString = simpleDateFormat.format(date);
             dateview.setText(dateToString);
         }
-
+///////////
 
         Button button =(Button)listItemView.findViewById(R.id.detailsButton);
         button.setTag(position);

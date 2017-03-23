@@ -24,6 +24,8 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 
 public class MainActivity extends AppCompatActivity implements Serializable{
@@ -108,6 +110,40 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         else if (item.getItemId()==R.id.add_delete_category){
             Intent intent = new Intent(this, CategoryAddDeleteActivity.class);
             startActivity(intent);
+
+        }
+        else if (item.getItemId()==R.id.sort_date) {
+            sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
+            String toDoListString = sharedPreferences.getString("myTasks", "whatever");
+            gson = new Gson();
+            TypeToken<ArrayList<ToDo>> typeToDoList = new TypeToken<ArrayList<ToDo>>() {
+            };
+            ArrayList<ToDo> fullList = gson.fromJson(toDoListString, typeToDoList.getType());
+            Collections.sort(fullList, new ToDo.ToDoDateComparator());
+
+            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
+
+            ListView listView = (ListView)findViewById(R.id.list);
+            listView.setAdapter(toDoListAdapter);
+
+            return true;
+
+        }
+        else if (item.getItemId()==R.id.view_category) {
+            sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
+            String toDoListString = sharedPreferences.getString("myTasks", "whatever");
+            gson = new Gson();
+            TypeToken<ArrayList<ToDo>> typeToDoList = new TypeToken<ArrayList<ToDo>>() {
+            };
+            ArrayList<ToDo> fullList = gson.fromJson(toDoListString, typeToDoList.getType());
+            Collections.sort(fullList, new ToDo.ToDoCategoryComparator());
+
+            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
+
+            ListView listView = (ListView)findViewById(R.id.list);
+            listView.setAdapter(toDoListAdapter);
+
+            return true;
 
         }
         return super.onOptionsItemSelected(item);

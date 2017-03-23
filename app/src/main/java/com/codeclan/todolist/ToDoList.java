@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+
 
 public class ToDoList extends AppCompatActivity  {
     public static final String TODOLIST = "thisToDoList";

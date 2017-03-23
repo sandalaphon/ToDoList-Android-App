@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/sort_priority"
-        android:title="Sort By Priority"/>
+        android:title="List by Priority"/>
+    <item android:id="@+id/sort_date"
+        android:title="List by Date"/>
+    <item android:id="@+id/view_category"
+        android:title="View By Category"/>
     <item android:id="@+id/add_delete_category"
         android:title="Add/Delete Category"/>
 </menu>

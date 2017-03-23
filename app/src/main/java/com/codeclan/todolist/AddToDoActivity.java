@@ -73,7 +73,6 @@ public class AddToDoActivity extends AppCompatActivity {
         );
     }
 
-
     @Override
     protected Dialog onCreateDialog(int id) {
         if (id == DIALOG_ID) {
@@ -95,8 +94,6 @@ public class AddToDoActivity extends AppCompatActivity {
 
                 }
             };
-
-
 
     public void addCategoriesToSpinner(){
 //        category = new Category("");
@@ -144,8 +141,6 @@ public class AddToDoActivity extends AppCompatActivity {
             }
 
         }
-
-
             Gson gson = new Gson();
 
             SharedPreferences sharedPreferences = getSharedPreferences(TODOLISTS, Context.MODE_PRIVATE);

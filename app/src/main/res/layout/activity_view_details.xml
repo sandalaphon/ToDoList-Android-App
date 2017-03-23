@@ -60,7 +60,15 @@ android:weightSum="1">
     android:inputType="textLongMessage"
     android:layout_weight="0.08" />
 
-<Button
+    <TextView
+        android:id="@+id/date_text_details"
+        android:layout_width="76dp"
+        android:layout_height="50sp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:textSize="20dp"/>
+
+    <Button
     android:id="@+id/edit_todo_button"
     style="@style/Widget.AppCompat.Button"
     android:layout_width="wrap_content"
@@ -81,6 +89,13 @@ android:weightSum="1">
         android:onClick="onClickDeleteToDoButton"
         android:text="DELETE Task"
         tools:text="Delete Task" />
+
+    <Button
+        android:id="@+id/set_date_button"
+        android:layout_width="121dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="Set Date" />
 
 
 
