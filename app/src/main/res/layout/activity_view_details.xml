@@ -62,11 +62,12 @@ android:weightSum="1">
 
     <TextView
         android:id="@+id/date_text_details"
-        android:layout_width="76dp"
-        android:layout_height="50sp"
+        android:layout_width="199dp"
+        android:layout_height="30dp"
         android:layout_gravity="center"
+        android:layout_weight="0.08"
         android:textAlignment="center"
-        android:textSize="20dp"/>
+        android:textSize="23dp" />
 
     <Button
     android:id="@+id/edit_todo_button"
