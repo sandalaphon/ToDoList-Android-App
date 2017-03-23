@@ -10,16 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
-
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-
-import static android.R.attr.priority;
-import static android.R.id.list;
-
 
 public class ToDoListAdapter extends ArrayAdapter<ToDo>{
     ArrayList<ToDo>toDoArray;

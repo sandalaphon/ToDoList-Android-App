@@ -1,16 +1,7 @@
 package com.codeclan.todolist;
 
-import android.content.Context;
-import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatActivity;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.Serializable;
 import java.util.ArrayList;
-
-import static android.content.Context.MODE_PRIVATE;
-
 
 public class Category implements Serializable{
     private String category;

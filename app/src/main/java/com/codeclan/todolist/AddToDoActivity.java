@@ -2,9 +2,7 @@ package com.codeclan.todolist;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,14 +15,9 @@ import android.widget.RatingBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 
 public class AddToDoActivity extends AppCompatActivity {
@@ -36,18 +29,13 @@ public class AddToDoActivity extends AppCompatActivity {
     private int month=03;
     private int day=22;
     static final int DIALOG_ID = 0;
-
-    private Category category;
     private Spinner categorySpinner;
-    private ArrayList<String>categories;
     public static final String TODOLISTS = "myTasks";
-    public static final String CATEGORIES = "categories";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_do);
-//        addcategories();
         addCategoriesToSpinner();
         Intent intent = getIntent();
         String summary = intent.getStringExtra("toDoSummary");
@@ -92,21 +80,15 @@ public class AddToDoActivity extends AppCompatActivity {
             };
 
     public void addCategoriesToSpinner(){
-//        category = new Category("");
-//        categories = new ArrayList<>(category.getCategories());
-
-        Gson gson = new Gson();
-
-        SharedPreferences sharedPreferences2 = getSharedPreferences(CATEGORIES, Context.MODE_PRIVATE);
-        String defaultValue = gson.toJson(new ArrayList<String>());
-        String newCategoryArrayST = sharedPreferences2.getString("categories", defaultValue);
-
-        TypeToken<ArrayList<String>>typeCategoryArray = new TypeToken<ArrayList<String>>(){};
-        ArrayList<String>newCategoryArray= gson.fromJson(newCategoryArrayST,typeCategoryArray.getType());
-
+        //get list of categories
+        SharedPrefCleaner clean = new SharedPrefCleaner(AddToDoActivity.this);
+        ArrayList<String> newCategoryArray=clean.getCategoriesStrings();
+        //cast a spinner object from id
         categorySpinner = (Spinner)findViewById(R.id.set_category);
+        //adapt array to populate spinner
             ArrayAdapter<String>categoriesAdapter= new ArrayAdapter<String>(
                     this, R.layout.simple_spinner_dropdown_items, newCategoryArray);
+        //use adapter to populate spinner
         categoriesAdapter.setDropDownViewResource(R.layout.simple_spinner_dropdown_items);
         categorySpinner.setAdapter(categoriesAdapter);
         }
@@ -134,25 +116,17 @@ public class AddToDoActivity extends AppCompatActivity {
             } catch (ParseException e) {
                 e.printStackTrace();
             }
-
         }
-            Gson gson = new Gson();
-
-            SharedPreferences sharedPreferences = getSharedPreferences(TODOLISTS, Context.MODE_PRIVATE);
-            String defaultValue = gson.toJson(new ArrayList<ToDo>());
-            String newToDoListArrayST = sharedPreferences.getString("myTasks", defaultValue);
-
-            TypeToken<ArrayList<ToDo>> typeNewToDoListArray = new TypeToken<ArrayList<ToDo>>() {
-            };
-            ArrayList<ToDo> newToDoListArray = gson.fromJson(newToDoListArrayST, typeNewToDoListArray.getType());
+            //get list
+            SharedPrefCleaner clean = new SharedPrefCleaner(AddToDoActivity.this);
+            ArrayList<ToDo>newToDoListArray=clean.getFullList();
+            //add object to list
             newToDoListArray.add(toDo);
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("myTasks", gson.toJson(newToDoListArray));
-            editor.apply();
-
+            //save list
+            clean.saveFullList(newToDoListArray);
+            //toast the Queen
             Toast.makeText(AddToDoActivity.this, "New Task Added", Toast.LENGTH_LONG).show();
-
+            //return to main activity
             Intent intent = new Intent(this, MainActivity.class);
             startActivity(intent);
         }

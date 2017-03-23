@@ -1,53 +1,34 @@
 package com.codeclan.todolist;
 
-import android.content.Context;
-import android.content.Intent;
-import android.content.SharedPreferences;
-import android.preference.PreferenceManager;
+
+import android.content.Intent;;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.RatingBar;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Comparator;
-
 
 public class MainActivity extends AppCompatActivity implements Serializable{
-    public static final String TODOLIST = "myTasks";
     ArrayList<ToDo>fullList;
-    Gson gson = new Gson();
-    SharedPreferences sharedPreferences;
-    SharedPreferences.Editor editor;
+
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_list);
         // First we get ArrayList of all ToDos from
-        // ShardPreference store
-        String defaultString = gson.toJson(new ArrayList<ToDo>());
-        sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
-        String toDoListString = sharedPreferences.getString("myTasks", defaultString );
+        // SharedPreference store
 
-        TypeToken<ArrayList<ToDo>>typeToDoList= new TypeToken<ArrayList<ToDo>>(){};
-        fullList = gson.fromJson(toDoListString, typeToDoList.getType());
+        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+        fullList= clean.getFullList();
 
-        // Now the vTODO arraylist is used to populate list
+        // Now  use ourTODO arraylist is used to populate list
         ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
 
         ListView listView = (ListView)findViewById(R.id.list);
@@ -90,19 +71,17 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     public boolean onOptionsItemSelected(MenuItem item){
         if(item.getItemId()==R.id.sort_priority){
             //First get the full toDoList
-            sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
-            String toDoListString = sharedPreferences.getString("myTasks", "whatever");
-            gson = new Gson();
-            TypeToken<ArrayList<ToDo>>typeToDoList= new TypeToken<ArrayList<ToDo>>(){};
-            ArrayList<ToDo>fullList = gson.fromJson(toDoListString, typeToDoList.getType());
+            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+            fullList = clean.getFullList();
         //   now sort the array
             SortPriority sorter = new SortPriority();
             ArrayList<ToDo>sorted=sorter.sortPriority(fullList);
         //  We now display sorted array...NOTE DANGER!!!
             // indexes do not match
             // Create new SharedPreferences sublist
-            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, sorted);
 
+            // use ToDoListAdapter to populate list
+            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, sorted);
             ListView listView = (ListView)findViewById(R.id.list);
             listView.setAdapter(toDoListAdapter);
 
@@ -114,16 +93,13 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
         }
         else if (item.getItemId()==R.id.sort_date) {
-            sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
-            String toDoListString = sharedPreferences.getString("myTasks", "whatever");
-            gson = new Gson();
-            TypeToken<ArrayList<ToDo>> typeToDoList = new TypeToken<ArrayList<ToDo>>() {
-            };
-            ArrayList<ToDo> fullList = gson.fromJson(toDoListString, typeToDoList.getType());
+            //get list
+            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+            fullList = clean.getFullList();
+            //sort list
             Collections.sort(fullList, new ToDo.ToDoDateComparator());
-
+            //display sorted list
             ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
-
             ListView listView = (ListView)findViewById(R.id.list);
             listView.setAdapter(toDoListAdapter);
 
@@ -131,16 +107,13 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
         }
         else if (item.getItemId()==R.id.view_category) {
-            sharedPreferences = getSharedPreferences("myTasks", Context.MODE_PRIVATE);
-            String toDoListString = sharedPreferences.getString("myTasks", "whatever");
-            gson = new Gson();
-            TypeToken<ArrayList<ToDo>> typeToDoList = new TypeToken<ArrayList<ToDo>>() {
-            };
-            ArrayList<ToDo> fullList = gson.fromJson(toDoListString, typeToDoList.getType());
+            //get list
+            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+            fullList = clean.getFullList();
+            //sort list
             Collections.sort(fullList, new ToDo.ToDoCategoryComparator());
-
+            //display list
             ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
-
             ListView listView = (ListView)findViewById(R.id.list);
             listView.setAdapter(toDoListAdapter);
 
@@ -151,15 +124,18 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     }
 
     public void onClickDeleteFromList(View button){
+        //retreive index of huckleberry
         int currentToDoPosition = (int)button.getTag();
+        // get list
+        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+        fullList = clean.getFullList();
+        //remove huckleberry from list
         fullList.remove(currentToDoPosition);
-        editor =sharedPreferences.edit();
-        editor.putString("myTasks", gson.toJson(fullList));
-        editor.apply();
+        //save list
+        clean.saveFullList(fullList);
         finish();
         startActivity(getIntent());
-
-
+        //toast the Queen
         Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_LONG).show();
 
 
