@@ -70,8 +70,9 @@ public class ToDo implements Serializable {
         @Override
         public int compare(ToDo toDo1, ToDo toDo2){
 
-            if(toDo1.getDate()==null || toDo2.getDate()==null)
-            {return ( toDo1.getDate()==null&&toDo2.getDate()==null) ? 0 : (toDo1.getDate()==null) ? 1 : -1;
+            if(toDo1.getDate()==null || toDo2.getDate()==null) {
+                return ( toDo1.getDate()==null&&toDo2.getDate()==null) ? 0 :
+                        (toDo1.getDate()==null) ? 1 : -1;
             }
             return toDo1.getDate().compareTo(toDo2.getDate());
 

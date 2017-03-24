@@ -19,6 +19,7 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity implements Serializable{
     ArrayList<ToDo>fullList;
     ArrayList<PairIndex>pairs;
+    SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
     ToDo toDo;
 
 
@@ -30,7 +31,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
         // First we get ArrayList of ToDos
 
-        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+
         fullList = clean.getFullList();
         {
         ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
@@ -80,9 +81,14 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId()==R.id.sort_priority){
+
+        if(item.getItemId()==R.id.home){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+       else if(item.getItemId()==R.id.sort_priority){
             //First get the full toDoList
-            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+//            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
             fullList = clean.getFullList();
             Log.d("unsorted list 84 main: " + fullList, "  hello");
         //   now sort the array
@@ -110,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         }
         else if (item.getItemId()==R.id.sort_date) {
             //get list
-            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+//            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
             fullList = clean.getFullList();
             //Create arraylist of PairIndex
             pairs = new ArrayList<>();
@@ -132,7 +138,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         }
         else if (item.getItemId()==R.id.view_category) {
             //get list
-            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+//            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
             fullList = clean.getFullList();
             //sort list
             pairs = new ArrayList<>();
@@ -159,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         //retreive index of huckleberry
         int currentToDoPosition = (int)button.getTag();
         // get list
-        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+//        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
         fullList = clean.getFullList();
 
         //remove huckleberry from list
