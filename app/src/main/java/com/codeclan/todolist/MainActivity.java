@@ -25,12 +25,25 @@ public class MainActivity extends AppCompatActivity implements Serializable{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_list);
+        //is there a bundle?
+        Intent intent = getIntent();
+
         // First we get ArrayList of ToDos
-        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
-        fullList= clean.getFullList();
-        {ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
-        ListView listView = (ListView)findViewById(R.id.list);
-        listView.setAdapter(toDoListAdapter);}
+
+            SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
+            fullList = clean.getFullList();
+            {
+                ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
+                ListView listView = (ListView) findViewById(R.id.list);
+                listView.setAdapter(toDoListAdapter);
+            }
+
+        if (intent.getExtras()!=null) {
+            pairs = (ArrayList<PairIndex>) intent.getExtras().getSerializable("Sorted Pairs Array");
+            PairsAdapter pairsAdapter = new PairsAdapter(this, pairs);
+            ListView listView = (ListView)findViewById(R.id.list);
+            listView.setAdapter(pairsAdapter);
+        }
     }
 
 

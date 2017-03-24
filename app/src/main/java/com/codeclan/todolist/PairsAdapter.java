@@ -10,13 +10,14 @@ import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
 
-public class PairsAdapter  extends ArrayAdapter<PairIndex> {
+public class PairsAdapter  extends ArrayAdapter<PairIndex> implements Serializable{
     ArrayList<ToDo>fullList;
     ArrayList<PairIndex> pairIndices;
     SharedPrefCleaner clean;

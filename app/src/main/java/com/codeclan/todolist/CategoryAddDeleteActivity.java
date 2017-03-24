@@ -17,7 +17,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.util.ArrayList;
 
-public class CategoryAddDeleteActivity extends AppCompatActivity {
+public class CategoryAddDeleteActivity extends BaseActivity {
     public static final String CATEGORIES = "categories";
     private Spinner categorySpinner;
 

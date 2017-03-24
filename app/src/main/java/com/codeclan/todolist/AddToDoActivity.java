@@ -20,7 +20,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class AddToDoActivity extends AppCompatActivity {
+public class AddToDoActivity extends BaseActivity {
 
     private Date date;
     private Boolean isDateSet = false;

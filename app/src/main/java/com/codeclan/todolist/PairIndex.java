@@ -1,12 +1,13 @@
 package com.codeclan.todolist;
 
+import java.io.Serializable;
 import java.util.Comparator;
 
 /**
  * Created by user on 24/03/2017.
  */
 
-public class PairIndex {
+public class PairIndex implements Serializable{
     ToDo toDo;
     int index;
 

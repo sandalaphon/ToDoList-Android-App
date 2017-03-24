@@ -22,7 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
 
-public class ViewDetailsActivity extends AppCompatActivity implements Serializable{
+public class ViewDetailsActivity extends BaseActivity implements Serializable{
     private Spinner categorySpinner;
     private int currentToDoPosition;
     private ToDo currentToDo;
