@@ -13,10 +13,12 @@ public class SharedPrefCleaner extends AppCompatActivity {
     Gson gson;
     SharedPreferences sharedPreferences;
     public static final String TODOLISTS = "myTasks";
+    public static final String TODOSUBLIST = "sublist";
     public static final String CATEGORIES = "categories";
     ToDo toDo;
     String category;
     ArrayList<ToDo>fullList;
+    ArrayList<ToDo>subList;
     ArrayList<String>categoriesSP;
     Context context;
 
@@ -61,4 +63,17 @@ public class SharedPrefCleaner extends AppCompatActivity {
         editor.putString("categories", gson.toJson(categoriesSP));
         editor.apply();
     }
+
+    public ArrayList<ToDo> getSubList(){
+        gson = new Gson();
+        String defaultString = gson.toJson(new ArrayList<ToDo>());
+        sharedPreferences = context.getSharedPreferences("sublist", Context.MODE_PRIVATE);
+        String toDoListString = sharedPreferences.getString("sublist", defaultString);
+        TypeToken<ArrayList<ToDo>> typeToDoList = new TypeToken<ArrayList<ToDo>>() {
+        };
+        subList = gson.fromJson(toDoListString, typeToDoList.getType());
+        return subList;
+    }
+
+
 }

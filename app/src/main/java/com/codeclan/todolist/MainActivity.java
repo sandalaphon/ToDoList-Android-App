@@ -4,6 +4,7 @@ package com.codeclan.todolist;
 import android.content.Intent;;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,29 +18,27 @@ import java.util.Collections;
 
 public class MainActivity extends AppCompatActivity implements Serializable{
     ArrayList<ToDo>fullList;
+    ArrayList<PairIndex>pairs;
+    ToDo toDo;
 
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.todo_list);
-        // First we get ArrayList of all ToDos from
-        // SharedPreference store
-
+        // First we get ArrayList of ToDos
         SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
         fullList= clean.getFullList();
-
-        // Now  use ourTODO arraylist is used to populate list
-        ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
-
+        {ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
         ListView listView = (ListView)findViewById(R.id.list);
-        listView.setAdapter(toDoListAdapter);
+        listView.setAdapter(toDoListAdapter);}
     }
 
 
     public void onClickAddSummary(View button){
+        //get the summary string
         EditText toDoSummaryET = (EditText)findViewById(R.id.newTaskSummary);
         String toDoSummary = toDoSummaryET.getText().toString();
-
+        //now we go to the add a to do screen..(taking the string with us.)
         Intent intent = new Intent(this, AddToDoActivity.class);
         intent.putExtra("toDoSummary", toDoSummary);//send the string through with the intent
         startActivity(intent);
@@ -47,9 +46,8 @@ public class MainActivity extends AppCompatActivity implements Serializable{
 
     public void onClickViewDetails(View button) {
 
-
         int currentToDoPosition = (int)button.getTag();
-        // the array index of relavent vToDo is collected from tag
+        // the array index of relavent vToDo collected from button tag
         Intent intent = new Intent(this, ViewDetailsActivity.class);
         Bundle bundle = new Bundle();
         bundle.putSerializable("currentToDo", currentToDoPosition);
@@ -73,17 +71,22 @@ public class MainActivity extends AppCompatActivity implements Serializable{
             //First get the full toDoList
             SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
             fullList = clean.getFullList();
+            Log.d("unsorted list 84 main: " + fullList, "  hello");
         //   now sort the array
-            SortPriority sorter = new SortPriority();
-            ArrayList<ToDo>sorted=sorter.sortPriority(fullList);
-        //  We now display sorted array...NOTE DANGER!!!
-            // indexes do not match
-            // Create new SharedPreferences sublist
 
-            // use ToDoListAdapter to populate list
-            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, sorted);
+            pairs = new ArrayList<>();
+            int counter = 0;
+            for(ToDo toDo:fullList){
+                PairIndex pi = new PairIndex(toDo,counter);
+                pairs.add(pi);
+                counter++;
+            }
+            Collections.sort(pairs, new PairIndex.PairPriorityComparator());
+
+
+            PairsAdapter pairsAdapter = new PairsAdapter(this, pairs);
             ListView listView = (ListView)findViewById(R.id.list);
-            listView.setAdapter(toDoListAdapter);
+            listView.setAdapter(pairsAdapter);
 
             return true;
         }
@@ -96,12 +99,20 @@ public class MainActivity extends AppCompatActivity implements Serializable{
             //get list
             SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
             fullList = clean.getFullList();
-            //sort list
-            Collections.sort(fullList, new ToDo.ToDoDateComparator());
-            //display sorted list
-            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
+            //Create arraylist of PairIndex
+            pairs = new ArrayList<>();
+            int counter = 0;
+            for(ToDo toDo:fullList){
+                PairIndex pi = new PairIndex(toDo,counter);
+                pairs.add(pi);
+                counter++;
+            }
+            Collections.sort(pairs, new PairIndex.PairDateComparator());
+
+
+            PairsAdapter pairsAdapter = new PairsAdapter(this, pairs);
             ListView listView = (ListView)findViewById(R.id.list);
-            listView.setAdapter(toDoListAdapter);
+            listView.setAdapter(pairsAdapter);
 
             return true;
 
@@ -111,11 +122,19 @@ public class MainActivity extends AppCompatActivity implements Serializable{
             SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
             fullList = clean.getFullList();
             //sort list
-            Collections.sort(fullList, new ToDo.ToDoCategoryComparator());
-            //display list
-            ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
+            pairs = new ArrayList<>();
+            int counter = 0;
+            for(ToDo toDo:fullList){
+                PairIndex pi = new PairIndex(toDo,counter);
+                pairs.add(pi);
+                counter++;
+            }
+            Collections.sort(pairs, new PairIndex.PairCategoryComparator());
+
+            PairsAdapter pairsAdapter = new PairsAdapter(this, pairs);
             ListView listView = (ListView)findViewById(R.id.list);
-            listView.setAdapter(toDoListAdapter);
+            listView.setAdapter(pairsAdapter);
+
 
             return true;
 
@@ -129,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         // get list
         SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
         fullList = clean.getFullList();
+
         //remove huckleberry from list
         fullList.remove(currentToDoPosition);
         //save list
@@ -137,8 +157,6 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         startActivity(getIntent());
         //toast the Queen
         Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_LONG).show();
-
-
     }
 
 

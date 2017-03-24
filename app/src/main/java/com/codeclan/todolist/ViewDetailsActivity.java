@@ -48,6 +48,7 @@ public class ViewDetailsActivity extends AppCompatActivity implements Serializab
 
         SharedPrefCleaner clean = new SharedPrefCleaner(ViewDetailsActivity.this);
         newToDoListArray = clean.getFullList();
+
         currentToDo = newToDoListArray.get(currentToDoPosition);
         TextView title = (TextView)findViewById(R.id.toDoEditSummary);
         title.setText(currentToDo.getTitle());
@@ -57,7 +58,6 @@ public class ViewDetailsActivity extends AppCompatActivity implements Serializab
         detailsET = (EditText)findViewById(R.id.set_edit_details);
         detailsET.setText(currentToDo.getDetails());
         addCategoriesToSpinner();
-
 
         date = currentToDo.getDate();
         if(date!=null){Log.d("Date", date.toString());}
@@ -159,37 +159,20 @@ public class ViewDetailsActivity extends AppCompatActivity implements Serializab
         if(date!=null){toDo = new ToDo(priority, categ, summary, details, date);}
         else if (date==null){toDo = new ToDo(priority, categ, summary, details);}
 
+
         newToDoListArray.set(currentToDoPosition, toDo);
 
         SharedPrefCleaner clean = new SharedPrefCleaner(ViewDetailsActivity.this);
         clean.saveFullList(newToDoListArray);
-
         Toast.makeText(ViewDetailsActivity.this, "Task Changes Have Been Saved", Toast.LENGTH_LONG).show();
 
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
 
-        if (isDateSet == true) {
-            try {
-                date = new SimpleDateFormat("dd/MM/yyyy").parse(day + "/" + month + "/" + year);
-
-                toDo = new ToDo(priority, categ, summary, details, date);
-                toDo.setDetails(details);
-                Log.d("" + date, "hello");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-
-            toDo = new ToDo(priority, categ, summary, details, date);
-            newToDoListArray.set(currentToDoPosition, toDo);
-
-            clean.saveFullList(newToDoListArray);
-        }
-
     }
 
     public void onClickDeleteToDoButton(View button){
-        newToDoListArray.remove(currentToDoPosition);
+        newToDoListArray.remove(currentToDo);
         SharedPrefCleaner clean = new SharedPrefCleaner(ViewDetailsActivity.this);
         clean.saveFullList(newToDoListArray);
 
