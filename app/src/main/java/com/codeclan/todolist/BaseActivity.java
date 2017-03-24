@@ -29,7 +29,11 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
-        if(item.getItemId()==R.id.sort_priority){
+        if(item.getItemId()==R.id.home){
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
+       else if(item.getItemId()==R.id.sort_priority){
             //First get the full toDoList
             SharedPrefCleaner clean = new SharedPrefCleaner(this);
             fullList = clean.getFullList();

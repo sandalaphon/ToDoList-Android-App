@@ -58,22 +58,10 @@ public class SharedPrefCleaner extends AppCompatActivity {
 
     public void saveCategory(ArrayList<String>categoriesSP){
         gson = new Gson();
-        sharedPreferences = getSharedPreferences("categories", Context.MODE_PRIVATE);
+        sharedPreferences = context.getSharedPreferences("categories", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString("categories", gson.toJson(categoriesSP));
         editor.apply();
     }
-
-    public ArrayList<ToDo> getSubList(){
-        gson = new Gson();
-        String defaultString = gson.toJson(new ArrayList<ToDo>());
-        sharedPreferences = context.getSharedPreferences("sublist", Context.MODE_PRIVATE);
-        String toDoListString = sharedPreferences.getString("sublist", defaultString);
-        TypeToken<ArrayList<ToDo>> typeToDoList = new TypeToken<ArrayList<ToDo>>() {
-        };
-        subList = gson.fromJson(toDoListString, typeToDoList.getType());
-        return subList;
-    }
-
 
 }

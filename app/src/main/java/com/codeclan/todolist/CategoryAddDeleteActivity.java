@@ -70,23 +70,26 @@ public class CategoryAddDeleteActivity extends BaseActivity {
     }
 
     public void onClickDeleteCategoryButton(View button){
-         Spinner categorySpinnerValue = (Spinner)findViewById(R.id.spinner);
+        Spinner categorySpinnerValue = (Spinner)findViewById(R.id.spinner);
         String categoryToDelete = categorySpinnerValue.getSelectedItem().toString();
 
-        Gson gson= new Gson();
-
-        SharedPreferences sharedPreferences2 = getSharedPreferences(CATEGORIES, Context.MODE_PRIVATE);
-        String defaultValue = gson.toJson(new ArrayList<String>());
-        String newCategoryArrayST = sharedPreferences2.getString("categories", defaultValue);
-
-        TypeToken<ArrayList<String>> typeCategoryArray = new TypeToken<ArrayList<String>>(){};
-        ArrayList<String>newCategoryArray= gson.fromJson(newCategoryArrayST,typeCategoryArray.getType());
+//        Gson gson= new Gson();
+//
+//        SharedPreferences sharedPreferences2 = getSharedPreferences(CATEGORIES, Context.MODE_PRIVATE);
+//        String defaultValue = gson.toJson(new ArrayList<String>());
+//        String newCategoryArrayST = sharedPreferences2.getString("categories", defaultValue);
+//
+//        TypeToken<ArrayList<String>> typeCategoryArray = new TypeToken<ArrayList<String>>(){};
+//        ArrayList<String>newCategoryArray= gson.fromJson(newCategoryArrayST,typeCategoryArray.getType());
+        SharedPrefCleaner clean = new SharedPrefCleaner(CategoryAddDeleteActivity.this);
+        ArrayList<String>newCategoryArray = clean.getCategoriesStrings();
         Log.d("newCategoryArray: " + newCategoryArray, "categoryToDelete: " + categoryToDelete);
         newCategoryArray.remove(categoryToDelete);
         Log.d("newCatArray after  " + newCategoryArray, "hello");
-        SharedPreferences.Editor editor2=  sharedPreferences2.edit();
-        editor2.putString("categories", gson.toJson(newCategoryArray));
-        editor2.apply();
+        clean.saveCategory(newCategoryArray);
+//        SharedPreferences.Editor editor2=  sharedPreferences2.edit();
+//        editor2.putString("categories", gson.toJson(newCategoryArray));
+//        editor2.apply();
 
         Toast.makeText(CategoryAddDeleteActivity.this,"Category has been deleted", Toast.LENGTH_LONG ).show();
 
@@ -94,5 +97,26 @@ public class CategoryAddDeleteActivity extends BaseActivity {
         startActivity(intent);
 
 
+    }
+
+    public void onClickViewCategoryButton(View button){
+        Spinner categorySpinnerValue = (Spinner)findViewById(R.id.spinner);
+        String categoryToView = categorySpinnerValue.getSelectedItem().toString();
+        SharedPrefCleaner clean = new SharedPrefCleaner(this);
+        fullList = clean.getFullList();
+        ArrayList<PairIndex>categoryPairs = new ArrayList<>();
+        int counter=0;
+        for(ToDo toDo:fullList){
+            if(toDo.getCategory().getCategory().equals(categoryToView)){
+                PairIndex pi = new PairIndex(toDo, counter);
+                categoryPairs.add(pi);
+            }
+            counter++;
+        }
+        Intent intent = new Intent(this, MainActivity.class);
+        Bundle bundle = new Bundle();
+        bundle.putSerializable("Sorted Pairs Array", categoryPairs);
+        intent = intent.putExtras(bundle);
+        startActivity(intent);
     }
 }
