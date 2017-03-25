@@ -1,6 +1,7 @@
 package com.codeclan.todolist;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Comparator;
 
 /**
@@ -19,7 +20,6 @@ public class PairIndex implements Serializable{
     public ToDo getToDo() {
         return toDo;
     }//get
-
     public void setToDo(ToDo toDo) {
         this.toDo = toDo;
     }//set
@@ -27,20 +27,33 @@ public class PairIndex implements Serializable{
     public int getIndex() {
         return index;
     }//get
-
     public void setIndex(int index) {
         this.index = index;
     }//set
+
+    public ArrayList<PairIndex> deleteByToDo(ToDo toDo, ArrayList<PairIndex> pairs){
+        int index = -1;
+        int counter = 0;
+        for(PairIndex pair: pairs){
+            if (pair.getToDo()==toDo){
+                index=counter;
+            }
+         counter++;
+        }
+        pairs.remove(index);
+        return pairs;
+    }
 
 
     static class PairDateComparator implements Comparator<PairIndex> {
 
         @Override
         public int compare(PairIndex pair1, PairIndex pair2) {
-
+            //if either date is null we cant use compareTo
             if (pair1.getToDo().getDate() == null || pair2.getToDo().getDate() == null) {
                 return (pair1.getToDo().getDate() == null && pair2.getToDo().getDate() == null) ? 0 : (pair1.getToDo().getDate() == null) ? 1 : -1;
             }
+            //if neither date is null compareTo is okay
             return pair1.getToDo().getDate().compareTo(pair2.getToDo().getDate());
 
         }
@@ -53,7 +66,6 @@ public class PairIndex implements Serializable{
 
             return (pair2.getToDo().getPriority()>pair1.getToDo().getPriority())? 1 :
                     (pair1.getToDo().getPriority()==pair2.getToDo().getPriority()) ? 0 : -1;
-
         }
     }
 

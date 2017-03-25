@@ -19,6 +19,7 @@ import java.util.Collections;
 public class MainActivity extends AppCompatActivity implements Serializable{
     ArrayList<ToDo>fullList;
     ArrayList<PairIndex>pairs;
+    PairIndex pair;
     SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
     ToDo toDo;
 
@@ -29,9 +30,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         //is there a bundle?
         Intent intent = getIntent();
 
-        // First we get ArrayList of ToDos
-
-
+        //Even if there is a bundle we first need listview
         fullList = clean.getFullList();
         {
         ToDoListAdapter toDoListAdapter = new ToDoListAdapter(this, fullList);
@@ -39,6 +38,7 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         listView.setAdapter(toDoListAdapter);
          }
 
+        //If there is a bundle then we need to switch to the pairs adapter
         if (intent.getExtras()!=null) {
             pairs = (ArrayList<PairIndex>) intent.getExtras().getSerializable("Sorted Pairs Array");
             PairsAdapter pairsAdapter = new PairsAdapter(this, pairs);
@@ -167,13 +167,12 @@ public class MainActivity extends AppCompatActivity implements Serializable{
         // get list
 //        SharedPrefCleaner clean = new SharedPrefCleaner(MainActivity.this);
         fullList = clean.getFullList();
-
         //remove huckleberry from list
         fullList.remove(currentToDoPosition);
         //save list
         clean.saveFullList(fullList);
-        finish();
-        startActivity(getIntent());
+        Intent intent= new Intent(this, MainActivity.class);
+        startActivity(intent);
         //toast the Queen
         Toast.makeText(MainActivity.this, "Task Deleted", Toast.LENGTH_LONG).show();
     }
