@@ -160,7 +160,8 @@ public class ViewDetailsActivity extends BaseActivity implements Serializable{
         else if (date==null){toDo = new ToDo(priority, categ, summary, details);}
 
 
-        newToDoListArray.set(currentToDoPosition, toDo);
+        newToDoListArray.remove(currentToDoPosition);
+        newToDoListArray.add(0, toDo);
 
         SharedPrefCleaner clean = new SharedPrefCleaner(ViewDetailsActivity.this);
         clean.saveFullList(newToDoListArray);

@@ -31,19 +31,6 @@ public class PairIndex implements Serializable{
         this.index = index;
     }//set
 
-    public ArrayList<PairIndex> deleteByToDo(ToDo toDo, ArrayList<PairIndex> pairs){
-        int index = -1;
-        int counter = 0;
-        for(PairIndex pair: pairs){
-            if (pair.getToDo()==toDo){
-                index=counter;
-            }
-         counter++;
-        }
-        pairs.remove(index);
-        return pairs;
-    }
-
 
     static class PairDateComparator implements Comparator<PairIndex> {
 

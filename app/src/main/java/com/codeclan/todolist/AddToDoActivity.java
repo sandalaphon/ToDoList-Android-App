@@ -121,7 +121,7 @@ public class AddToDoActivity extends BaseActivity {
             SharedPrefCleaner clean = new SharedPrefCleaner(AddToDoActivity.this);
             ArrayList<ToDo>newToDoListArray=clean.getFullList();
             //add object to list
-            newToDoListArray.add(toDo);
+            newToDoListArray.add(0, toDo);
             //save list
             clean.saveFullList(newToDoListArray);
             //toast the Queen
