@@ -16,7 +16,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AddToDoActivity" />
-        <activity android:name=".ViewDetailsActivity" />
+        <activity android:name=".ViewDetailsActivity"
+            android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".CategoryAddDeleteActivity"></activity>
     </application>
 
